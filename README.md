@@ -26,8 +26,19 @@ This project was created using the following frameworks:
 
 ## Getting Started <a name="GettingStarted"></a>
 
+To install YelpCamp, fork or clone the repository and follow the instructions below.
 
 ### Prerequisites <a name="Prerequisites"></a>
+
+For a local running copy, Node.js must be installed with npm. To install Node with NPM, please follow these [Docs](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+MongoDB must be installed for the database features. To install MongoDB locally, please follow the [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) docs. For any hosted version, an online MongoDB hosting service is required (e.g. Atlas). Depending on your webpage host, a configuration must be set within your code to ensure connection is established with Atlas.
+
+A Google Maps API key is required for the Maps feature. These keys can be generated and managed through the Google Credentials portal. The following APIs must be enabled:
+* Maps JavaScript API
+* Geocoding API
+
+_NOTE: You MUST update your API KEY restrictions to include the web-page you will be hosting your copy on. To host this locally, you will need to include your localhost:[PORT] as an address._
 
 ### Installation <a name="Installation"></a>
 
