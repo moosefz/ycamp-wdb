@@ -1,24 +1,24 @@
 // REQUIREMENTS
-const 	express 			= require("express"),
-		passport			= require("passport"),
-		bodyParser 			= require("body-parser"),
-		mongoose 			= require("mongoose"),
-		seedDB 				= require("./seeds"),
-		methodOverride		= require("method-override"),
-		LocalStrategy 		= require("passport-local"),
-		flash				= require("connect-flash"),
+const express = require("express"),
+	passport = require("passport"),
+	bodyParser = require("body-parser"),
+	mongoose = require("mongoose"),
+	seedDB = require("./seeds"),
+	methodOverride = require("method-override"),
+	LocalStrategy = require("passport-local"),
+	flash = require("connect-flash"),
 
-		//db models
-		User 				= require("./models/user");
+	//db models
+	User = require("./models/user");
 
 // =====================
 // SETUP
 // =====================
 
 // Route Requirements (refactored in /routes)
-var 	commentRoutes 		= require("./routes/comments"),
-		campgroundRoutes 	= require("./routes/campgrounds"),
-		indexRoutes 		= require("./routes/index");
+var commentRoutes = require("./routes/comments"),
+	campgroundRoutes = require("./routes/campgrounds"),
+	indexRoutes = require("./routes/index");
 
 // Express Configuration
 var app = express();
