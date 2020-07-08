@@ -6,11 +6,11 @@ YelpCamp - Node.js, Express.js, MongoDB, Passport - Post, rate and comment camps
 ## Table Of Contents
 * [About](##About)
   * [Built With](###Built With)
-* [Getting Started](## Getting Started)
-  * [Prerequisites](### Prerequisites)
-  * [Installation](### Installation)
-* [Usage](## Usage)
-* [Extras](## Extras)
+* [Getting Started](##Getting Started)
+  * [Prerequisites](###Prerequisites)
+  * [Installation](###Installation)
+* [Usage](##Usage)
+* [Extras](##Extras)
 
 ## About
 
