@@ -5,8 +5,8 @@ YelpCamp - Node.js, Express.js, MongoDB, Passport - Post, rate and comment camps
 
 ## Table Of Contents
 * [About](#About)
-  * [Built With](#Built With)
-* [Getting Started](#Getting Started)
+  * [Built With](#BuiltWith)
+* [Getting Started](#GettingStarted)
   * [Prerequisites](#Prerequisites)
   * [Installation](#Installation)
 * [Usage](#Usage)
@@ -14,15 +14,15 @@ YelpCamp - Node.js, Express.js, MongoDB, Passport - Post, rate and comment camps
 
 ## About <a name="About"></a>
 
-### Built With
+### Built With <a name="BuiltWith"></a>
 
-## Getting Started
+## Getting Started <a name="GettingStarted"></a>
 
-### Prerequisites
+### Prerequisites <a name="Prerequisites"></a>
 
-### Installation
+### Installation <a name="Installation"></a>
 
-## Usage
+## Usage <a name="Usage"></a>
 
-## Extras
+## Extras <a name="Extras"></a>
 
