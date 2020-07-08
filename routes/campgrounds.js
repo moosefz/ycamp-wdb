@@ -1,4 +1,3 @@
-
 // Allows the router to export the routes to the app.js file
 var express = require("express");
 var router = express.Router();
@@ -8,6 +7,16 @@ var Campground = require("../models/campground")
 
 // import custom middleware (as index.js file, no need to specify because its index)
 var middleware = require("../middleware");
+var NodeGeocoder = require("node-geocoder");
+
+var options = {
+	provider: "google",
+	httpAdapter: "https",
+	apiKey: process.env.GEOCODER_API_KEY,
+	formatter: null
+};
+
+var geocoder = NodeGeocoder(options);
 
 // INDEX ROUTE - SHOW ALL CAMPGROUNDS
 router.get("/", function(req, res) {
@@ -39,17 +48,29 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		id: req.user._id,
 		username: req.user.username
 	}
-	var newCampground = {name: name, image: image, desc: desc, author: author, price: price};
 
-	//Create a new Campground and save to DB
-	Campground.create(newCampground, function(err, newlyCreated) {
-		if(err) {
-			console.log(err); //error
-		} else {
-			res.redirect("campgrounds"); //redirect back to campgrounds page as a get
+	geocoder.geocode(req.body.location, function(err,data) {
+		if(err || !data.length) {
+			req.flash("error", "Invalid Address");
+			return res.redirect("back");
 		}
-	})
-})
+
+		// collect geocoded data
+		var lat = data[0].latitude;
+		var lng = data[0].longitude;
+		var location = data[0].formattedAddress;
+		var newCampground = {name: name, image: image, desc: desc, author: author, price: price, lat: lat, lng: lng, location: location};
+
+		//Create a new Campground and save to DB
+		Campground.create(newCampground, function(err) {
+			if(err) {
+				console.log(err); //error
+			} else {
+				res.redirect("campgrounds"); //redirect back to campgrounds page as a get
+			}
+		});
+	});	
+});
 
 // NEW ROUTE - SHOW FORM TO CREATE NEW CAMPGROUND - MUST BE DECLARED BEFORE THE :id ROUTE - MUST BE LOGGED IN
 router.get("/new", middleware.isLoggedIn, function(req, res) {
@@ -83,16 +104,29 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) 
 
 // UPDATE CAMPGROUND ROUTE - REQUIRES USED OF method-override
 router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
-	// Find and update the correct campground by id
-	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
-		if(err) {
-			res.redirect("/campgrouds")
-		} else {
-				// Redirect to the specific show page
-			res.redirect("/campgrounds/" + req.params.id)
+	geocoder.geocode(req.body.location, function(err, data) {
+		if(err || !data.length) {
+			req.flash("error", "Invalid Address");
+			res.redirect("back");
 		}
-	})
-})
+
+		// collect geocoded data
+		req.body.campground.lat = data[0].latitude;
+		req.body.campground.lng = data[0].longitude;
+		req.body.campground.location = data[0].formattedAddress;
+
+		Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+			if(err) {
+				req.flash("error", err.message);
+				res.redirect("/campgrouds")
+			} else {
+				req.flash("success", "Successfully Updated!");
+				// Redirect to the specific show page
+				res.redirect("/campgrounds/" + updatedCampground._id)
+			}
+		});
+	});
+});
 
 // DESTROY CAMPGROUND ROUTE
 router.delete("/:id", middleware.checkCampgroundOwnership, async(req, res) => {

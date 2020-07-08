@@ -7,6 +7,9 @@ var campgroundSchema = new mongoose.Schema({
 	image: String,
 	desc: String,
 	price: String,
+	location: String,
+	lat: Number,
+	lng: Number,
 	// Associate user to campground
 	author: {
 		id: {

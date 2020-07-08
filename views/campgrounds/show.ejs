@@ -4,11 +4,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
-			<p class="lead">YelpCamp</p>
-			<div class="list-group">
-				<li class="list-group-item active">Info 1</li>
-				<li class="list-group-item">Info 2</li>
-				<li class="list-group-item">Info 3</li>
+			<p class="lead"><%= campId.name %></p>
+			<p><%= campId.location %></p>
+			<div id="map">
+				
 			</div>
 		</div>
 		<div class="col-md-9">
@@ -64,5 +63,33 @@
 	</div>
 </div>
 
+<!-- Google Maps Integration -->
+<script>
+	function initMap() {
+		var lat = <%= campId.lat %>;
+		var lng = <%= campId.lng %>;
+		var center = { lat: lat, lng: lng };
+
+		var map = new google.maps.Map(document.getElementById("map"), {
+			zoom: 8,
+			center: center,
+			scrollwheel: false
+		});
+
+		var contentString = '<strong><%= campId.name %><br /><%= campId.location %></strong><p><%= campId.desc %></p>'
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+		var marker = new google.maps.Marker({
+			position: center,
+			map: map
+		});
+
+		marker.addListener("click", function() {
+			infowindow.open(map, marker);
+		});
+	}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIfB8SvTbCDoLnnraUCmavqRIkmmGQ3JU&callback=initMap"></script>
 
 <%- include('../partials/footer') %>

@@ -1,3 +1,6 @@
+// env var
+require('dotenv').config();
+
 // REQUIREMENTS
 const express = require("express"),
 	passport = require("passport"),
@@ -28,10 +31,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yelp_camp", {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true,
 	useCreateIndex: true
-}).then(() => {
-	console.log("Connected to DB")
-}).catch(err => {
-	console.log("ERROR: ", err.message);
+	}).then(() => {
+		console.log("Connected to DB")
+	}).catch(err => {
+		console.log("ERROR: ", err.message);
 })
 
 app.set("view engine", "ejs");

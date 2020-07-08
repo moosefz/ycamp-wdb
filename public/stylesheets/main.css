@@ -1,3 +1,7 @@
+.container {
+	margin-bottom: 20px;
+}
+
 .thumbnail img {
 	width: 100%;
 }
@@ -8,4 +12,10 @@
 
 .delete-form {
 	display: inline;
+}
+
+#map {
+	height: 400px;
+	width: 100%;
+	margin-bottom: 15px;
 }
